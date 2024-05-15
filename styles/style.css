@@ -1,0 +1,153 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 10px;
+    background-color: #EFF0F2;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+h2 {
+    margin: 50px 0px;
+    font-size: 24px;
+    font-weight: bolder;
+    color: #021639;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding-top: 40px;
+}
+
+.logo img {
+    height: 52px;
+}
+
+.dropdown {
+    top: 10px;
+}
+
+.dropbtn {
+    color: black;
+    padding: 5px 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 50px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #778899;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+main {
+    text-align: center;
+    width: 100%;
+}
+
+.test-btn, .next-btn, .submit-btn {
+    padding: 20px 80px;
+    font-size: 20px;
+    color: white;
+    background-color: #00468B;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
+.test-btn:hover, .next-btn, .submit-btn {
+    background-color: #F7B432;
+}
+
+.next-btn:hover, .submit-btn:hover {
+    background-color: #00468B;
+}
+
+.interview {
+    display: none;
+}
+
+.question {
+    display: none;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    position: relative;
+    margin: 20px 0;
+}
+
+.input-container input, .input-container textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.input-container input:focus + label,
+.input-container textarea:focus + label,
+.input-container input:not(:placeholder-shown) + label,
+.input-container textarea:not(:placeholder-shown) + label {
+    top: -20px;
+    left: 10px;
+    font-size: 14px;
+    color: #00468B;
+    visibility: visible;
+}
+
+label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 16px;
+    color: #999;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    visibility: hidden;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #00468B;
+}
+
+.skip-btn {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+
+.skip-btn:hover {
+    text-decoration: underline;
+}
