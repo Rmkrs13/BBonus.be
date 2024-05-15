@@ -83,12 +83,8 @@ main {
     cursor: pointer;
 }
 
-.test-btn:hover, .next-btn, .submit-btn {
+.test-btn:hover, .next-btn:hover, .submit-btn:hover {
     background-color: #F7B432;
-}
-
-.next-btn:hover, .submit-btn:hover {
-    background-color: #00468B;
 }
 
 .interview {
@@ -103,12 +99,15 @@ main {
 .input-container {
     position: relative;
     margin: 20px 0;
+    width: 100%;
+    max-width: 400px;
 }
 
 .input-container input, .input-container textarea {
     width: 100%;
     padding: 10px;
     font-size: 16px;
+    box-sizing: border-box;
 }
 
 .input-container input:focus + label,
