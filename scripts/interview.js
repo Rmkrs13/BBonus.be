@@ -15,6 +15,41 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function goToNextQuestion() {
+        if (currentQuestionIndex === 0 && nameInput.value.trim() !== '') {
+            namePlaceholder.textContent = nameInput.value.trim();
+        }
+
+        if (currentQuestionIndex === 3) {
+            const alone = document.querySelector('input[name="alone"]:checked');
+            if (alone && alone.value === 'ja') {
+                currentQuestionIndex += 2; // Skip the "Met wie woon je daar?" and "Is dit je eigen woning?" questions
+            } else {
+                currentQuestionIndex++;
+            }
+        } else if (currentQuestionIndex === 5) {
+            const job = document.querySelector('input[name="job"]:checked');
+            if (job && job.value === 'nee') {
+                currentQuestionIndex++; // Go to the "Krijg je momenteel een uitkering?" question
+            } else {
+                currentQuestionIndex += 2; // Skip the "Krijg je momenteel een uitkering?" question
+            }
+        } else if (currentQuestionIndex === 7) {
+            const specificQuestions = document.querySelector('input[name="specificQuestions"]:checked');
+            if (specificQuestions && specificQuestions.value === 'ja') {
+                currentQuestionIndex++;
+            } else {
+                currentQuestionIndex += 2;
+            }
+        } else {
+            currentQuestionIndex++;
+        }
+
+        if (currentQuestionIndex < questions.length) {
+            showQuestion(currentQuestionIndex);
+        }
+    }
+
     startButton.addEventListener('click', function () {
         introSection.style.display = 'none';
         interviewSection.style.display = 'block';
@@ -23,42 +58,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     nextButtons.forEach(button => {
         button.addEventListener('click', function () {
-            if (currentQuestionIndex === 0 && nameInput.value.trim() !== '') {
-                namePlaceholder.textContent = nameInput.value.trim();
-            }
-            if (currentQuestionIndex === 3 && document.querySelector('input[name="alone"]:checked').value === 'ja') {
-                currentQuestionIndex += 2; // Skip the "Met wie woon je daar?" question
-            } else {
-                currentQuestionIndex++;
-            }
-            if (currentQuestionIndex < questions.length) {
-                showQuestion(currentQuestionIndex);
-            }
+            goToNextQuestion();
         });
     });
 
     skipButtons.forEach(button => {
         button.addEventListener('click', function () {
-            if (currentQuestionIndex === 3 && document.querySelector('input[name="alone"]:checked').value === 'ja') {
-                currentQuestionIndex += 2; // Skip the "Met wie woon je daar?" question
-            } else {
-                currentQuestionIndex++;
-            }
-            if (currentQuestionIndex < questions.length) {
-                showQuestion(currentQuestionIndex);
-            }
+            goToNextQuestion();
         });
     });
 
     // Event listener for specific question
     document.querySelectorAll('input[name="specificQuestions"]').forEach(input => {
         input.addEventListener('change', function () {
-            if (input.value === 'ja') {
-                currentQuestionIndex++;
-            } else {
-                currentQuestionIndex += 2;
-            }
-            showQuestion(currentQuestionIndex);
+            goToNextQuestion();
         });
     });
 });
