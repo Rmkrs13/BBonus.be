@@ -1,26 +1,12 @@
 <?php
 require 'vendor/autoload.php';
 
-use OpenAI\Client;
-use OpenAI\Transporters\HttpTransporter;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Symfony\Component\HttpClient\HttpClient;
-
 // Load configuration
 $config = require 'config.php';
 $apiKey = $config['openai_api_key'];
 
-// Create a PSR-17 HTTP factory
-$psr17Factory = new Psr17Factory();
-
-// Create a Symfony HTTP client
-$symfonyClient = HttpClient::create();
-
-// Create an HTTP transporter
-$transporter = new HttpTransporter($symfonyClient, $psr17Factory, $psr17Factory, $psr17Factory, $apiKey);
-
-// Instantiate the OpenAI client
-$openai = new Client($transporter);
+// Instantiate the OpenAI client directly
+$client = OpenAI::client($apiKey);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -53,16 +39,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         Interests: $interest
     ";
 
+    // Prepare the messages for the chat model
+    $messages = [
+        ['role' => 'system', 'content' => 'You are a helpful assistant.'],
+        ['role' => 'user', 'content' => "Here are the user's details: $answers. Start a chat with them."]
+    ];
+
     // Start the chat with the compiled answers
-    $prompt = "Here are the user's details: $answers. Start a chat with them.";
-    
-    $response = $openai->completions()->create([
-        'model' => 'text-davinci-003',
-        'prompt' => $prompt,
+    $response = $client->chat()->create([
+        'model' => 'gpt-4-turbo',
+        'messages' => $messages,
         'max_tokens' => 150,
     ]);
 
-    $chatResponse = $response['choices'][0]['text'];
+    $chatResponse = $response['choices'][0]['message']['content'];
 } else {
     $chatResponse = "Please fill out the form to start a chat.";
 }
