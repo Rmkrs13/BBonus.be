@@ -6,6 +6,14 @@
     <title>BBonus - Ontdek waar je écht recht op hebt</title>
     <link rel="stylesheet" href="./styles/normalize.css">
     <link rel="stylesheet" href="./styles/style.css">
+    <style>
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -30,9 +38,9 @@
             <button class="test-btn">DOE DE TEST</button>
         </section>
 
-        <section class="interview">
+        <section class="interview" style="display:none;">
             <form class="questions" action="./chat.php" method="POST">
-                <div class="question" id="question1">
+                <div class="question active" id="question1">
                     <h2>Laten we eerst even kennis maken</h2>
                     <div class="input-container">
                         <input type="text" id="name" name="name" placeholder="Wat is je naam?" required>
@@ -72,10 +80,10 @@
                 <div class="question" id="question3a">
                     <h2>Met wie woon je daar?</h2>
                     <div class="checkbox-container">
-                        <label class="checkbox-radio"><input type="checkbox" name="with" value="Ouders"> Ouders</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="with" value="Kinderen"> Kinderen</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="with" value="Partner"> Partner</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="with" value="Anders"> Anders</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="with[]" value="Ouders"> Ouders</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="with[]" value="Kinderen"> Kinderen</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="with[]" value="Partner"> Partner</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="with[]" value="Anders"> Anders</label><br>
                     </div>
                     <br>
                     <button type="button" class="next-btn">Volgende</button><br>
@@ -143,14 +151,14 @@
                 <div class="question" id="question7b">
                     <h2>In welke thema's ben je geïnteresseerd?</h2>
                     <div class="checkbox-container">
-                        <label class="checkbox-radio"><input type="checkbox" name="interest" value="Voertuigen"> Voertuigen</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="interest" value="Dier & Natuur"> Dier & Natuur</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="interest" value="Wonen & bouwen"> Wonen & bouwen</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="interest" value="Milieu"> Milieu</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="interest" value="Ondernemers"> Ondernemers</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="interest" value="Studenten"> Studenten</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="interest" value="Jobs en loon"> Jobs en loon</label><br>
-                        <label class="checkbox-radio"><input type="checkbox" name="interest" value="Niets specifiek"> Niets specifiek</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="interest[]" value="Voertuigen"> Voertuigen</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="interest[]" value="Dier & Natuur"> Dier & Natuur</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="interest[]" value="Wonen & bouwen"> Wonen & bouwen</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="interest[]" value="Milieu"> Milieu</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="interest[]" value="Ondernemers"> Ondernemers</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="interest[]" value="Studenten"> Studenten</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="interest[]" value="Jobs en loon"> Jobs en loon</label><br>
+                        <label class="checkbox-radio"><input type="checkbox" name="interest[]" value="Niets specifiek"> Niets specifiek</label><br>
                     </div>
                     <br>
                     <button type="submit" class="submit-btn">Verzenden</button>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'vendor/autoload.php';
 
 // Load configuration
@@ -8,53 +9,30 @@ $apiKey = $config['openai_api_key'];
 // Instantiate the OpenAI client directly
 $client = OpenAI::client($apiKey);
 
+// Initialize conversation if not already done
+if (!isset($_SESSION['conversation'])) {
+    $_SESSION['conversation'] = [];
+}
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'] ?? '';
-    $age = $_POST['age'] ?? '';
-    $location = $_POST['location'] ?? '';
-    $alone = $_POST['alone'] ?? '';
-    $with = isset($_POST['with']) ? implode(', ', $_POST['with']) : '';
-    $ownHouse = $_POST['ownHouse'] ?? '';
-    $job = $_POST['job'] ?? '';
-    $benefit = $_POST['benefit'] ?? '';
-    $income = $_POST['income'] ?? '';
-    $specificQuestions = $_POST['specificQuestions'] ?? '';
-    $specificQuestionDetails = $_POST['specificQuestionDetails'] ?? '';
-    $interest = isset($_POST['interest']) ? implode(', ', $_POST['interest']) : '';
+    $userMessage = $_POST['message'] ?? '';
+    
+    if ($userMessage) {
+        // Append user message to the conversation history
+        $_SESSION['conversation'][] = ['role' => 'user', 'content' => $userMessage];
 
-    // Compile the answers into a string
-    $answers = "
-        Name: $name
-        Age: $age
-        Location: $location
-        Living alone: $alone
-        Living with: $with
-        Own house: $ownHouse
-        Job: $job
-        Benefit: $benefit
-        Income: $income
-        Specific questions: $specificQuestions
-        Specific question details: $specificQuestionDetails
-        Interests: $interest
-    ";
+        // Send the conversation history to the GPT model
+        $response = $client->chat()->create([
+            'model' => 'gpt-4-turbo',
+            'messages' => $_SESSION['conversation'],
+            'max_tokens' => 150,
+        ]);
 
-    // Prepare the messages for the chat model
-    $messages = [
-        ['role' => 'system', 'content' => 'You are a helpful assistant.'],
-        ['role' => 'user', 'content' => "Here are the user's details: $answers. Start a chat with them."]
-    ];
-
-    // Start the chat with the compiled answers
-    $response = $client->chat()->create([
-        'model' => 'gpt-4-turbo',
-        'messages' => $messages,
-        'max_tokens' => 150,
-    ]);
-
-    $chatResponse = $response['choices'][0]['message']['content'];
-} else {
-    $chatResponse = "Please fill out the form to start a chat.";
+        // Append assistant's response to the conversation history
+        $chatResponse = $response['choices'][0]['message']['content'];
+        $_SESSION['conversation'][] = ['role' => 'assistant', 'content' => $chatResponse];
+    }
 }
 ?>
 
@@ -65,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BBonus - Chatbot</title>
     <link rel="stylesheet" href="./styles/normalize.css">
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/chat.css">
 </head>
 <body>
     <header>
@@ -88,7 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h2>Chat with BBonus</h2>
             <div class="chat-container">
                 <div class="chat-box">
-                    <?php echo nl2br(htmlspecialchars($chatResponse)); ?>
+                    <?php
+                    if (isset($_SESSION['conversation'])) {
+                        foreach ($_SESSION['conversation'] as $message) {
+                            $roleClass = $message['role'] === 'user' ? 'user' : 'assistant';
+                            echo '<div class="message ' . $roleClass . '">' . nl2br(htmlspecialchars($message['content'])) . '</div>';
+                        }
+                    }
+                    ?>
                 </div>
                 <form action="chat.php" method="POST" class="chat-form">
                     <textarea name="message" placeholder="Type your message..." required></textarea>
