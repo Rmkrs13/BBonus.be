@@ -39,7 +39,7 @@
         </section>
 
         <section class="interview" style="display:none;">
-            <form class="questions" action="./chat.php" method="POST">
+            <form class="questions" action="./chat.php?new_session=true" method="POST">
                 <div class="question active" id="question1">
                     <h2>Laten we eerst even kennis maken</h2>
                     <div class="input-container">

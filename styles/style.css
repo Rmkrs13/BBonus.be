@@ -1,22 +1,36 @@
+/* Define CSS variables for colors */
+:root {
+    --background-color: #EFF0F2;
+    --primary-color: #00468B;
+    --secondary-color: #F7B432;
+    --text-color: #021639;
+    --light-gray: #f4f4f4;
+    --dark-gray: #ddd;
+    --blue: #3498db;
+    --dark-blue: #2980b9;
+    --white: #fff;
+    --black: #000;
+    --gray: #999;
+    --hover-gray: #778899;
+    --light-background: #ecf0f1;
+    --border-color: #bdc3c7;
+}
+
+/* General styling */
 body, html {
     height: 100%;
     margin: 0;
-    padding: 10px;
-    background-color: #EFF0F2;
+    padding: 0;
+    background-color: var(--background-color);
     font-family: Arial, sans-serif;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+    overflow: hidden; /* Prevent scrolling */
 }
 
 h2 {
-    margin: 50px 0px;
     font-size: 24px;
     font-weight: bolder;
-    color: #021639;
+    color: var(--text-color);
+    text-align: center;
 }
 
 header {
@@ -25,8 +39,11 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    padding-top: 40px;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: var(--background-color);
+    border: none;
+    z-index: 1000;
 }
 
 .logo img {
@@ -34,11 +51,11 @@ header {
 }
 
 .dropdown {
-    top: 10px;
+    position: relative;
 }
 
 .dropbtn {
-    color: black;
+    color: var(--black);
     padding: 5px 10px;
     font-size: 16px;
     border: none;
@@ -48,20 +65,21 @@ header {
 .dropdown-content {
     display: none;
     position: absolute;
+    right: 0;
     min-width: 50px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
 .dropdown-content a {
-    color: black;
+    color: var(--black);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: #778899;
+    background-color: var(--hover-gray);
 }
 
 .dropdown:hover .dropdown-content {
@@ -69,44 +87,61 @@ header {
 }
 
 main {
+    width: 100%;
+    height: calc(100% - 72px); /* Adjust for header height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.intro {
+    text-align: center;
+}
+
+.intro img {
+    max-width: 500px;
+}
+
+.interview {
+    display: none;
     text-align: center;
     width: 100%;
+    max-width: 600px; /* Added max-width */
+    margin: 0 auto; /* Center horizontally */
 }
 
 .test-btn, .next-btn, .submit-btn {
     padding: 20px 80px;
     font-size: 20px;
-    color: white;
-    background-color: #00468B;
+    color: var(--white);
+    background-color: var(--primary-color);
     border: none;
     border-radius: 16px;
     cursor: pointer;
 }
 
 .test-btn:hover {
-    background-color: #F7B432;
+    background-color: var(--secondary-color);
 }
 
 .next-btn, .submit-btn {
-    background-color: #F7B432;
+    background-color: var(--secondary-color);
 }
 
 .next-btn:hover, .submit-btn:hover {
-    background-color: #00468B;
-}
-
-.interview {
-    display: none;
+    background-color: var(--primary-color);
 }
 
 .question {
     display: none;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Added bottom margin */
+    text-align: center;
 }
 
 .input-container {
     position: relative;
-    margin: 20px 0;
+    margin: 20px auto;
     width: 100%;
     max-width: 400px;
 }
@@ -117,7 +152,8 @@ main {
     font-size: 16px;
     box-sizing: border-box;
     border-radius: 1em;
-    border: 1px solid #000;
+    border: 1px solid var(--black);
+    margin-bottom: 10px; /* Added bottom margin */
 }
 
 .input-container input:focus + label,
@@ -127,7 +163,7 @@ main {
     top: -20px;
     left: 10px;
     font-size: 14px;
-    color: #00468B;
+    color: var(--primary-color);
     visibility: visible;
 }
 
@@ -136,7 +172,8 @@ label {
     top: 10px;
     left: 10px;
     font-size: 16px;
-    color: #999;
+    color: var(--gray);
+    margin-bottom: 10px; /* Added bottom margin */
 }
 
 .text-input-label {
@@ -147,13 +184,15 @@ label {
 
 input:focus, textarea:focus {
     outline: none;
-    border-color: #00468B;
+    border-color: var(--primary-color);
 }
 
 .radio-container, .checkbox-container {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 20px; /* Added bottom margin */
 }
 
 .radio-container label, .checkbox-container label {
@@ -174,7 +213,7 @@ input:focus, textarea:focus {
 }
 
 .checkbox-radio {
-    border: 1px solid #000;
+    border: 1px solid var(--black);
     padding: 20px;
     margin: 10px;
     border-radius: 12px;
@@ -186,7 +225,7 @@ input:focus, textarea:focus {
     font-size: 16px;
     background: none;
     border: none;
-    color: black;
+    color: var(--black);
     cursor: pointer;
 }
 
@@ -194,64 +233,81 @@ input:focus, textarea:focus {
     text-decoration: underline;
 }
 
-/* Chat styles */
+/* Chat styling */
+.chat {
+    width: 100%;
+    height: calc(100% - 72px); /* Adjust for header height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden; /* Prevent scrolling */
+}
+
 .chat-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .chat-box {
-    max-height: 500px;
+    flex: 1;
+    width: 100%;
     overflow-y: auto;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    background-color: #f4f4f4;
+    background-color: var(--light-gray);
+    box-sizing: border-box;
 }
 
 .message {
     margin: 10px 0;
     padding: 10px;
     border-radius: 8px;
+    border: 1px solid var(--dark-gray);
     max-width: 75%;
     word-wrap: break-word;
 }
 
 .message.user {
-    background-color: #3498db;
-    color: white;
+    background-color: var(--blue);
+    color: var(--white);
     margin-left: auto;
     border-top-right-radius: 0;
+    border-color: var(--dark-blue);
 }
 
 .message.assistant {
-    background-color: #ecf0f1;
-    color: black;
+    background-color: var(--light-background);
+    color: var(--black);
     border-top-left-radius: 0;
+    border-color: var(--border-color);
 }
 
 .chat-form {
     display: flex;
     gap: 10px;
+    width: 100%;
+    padding: 10px 0;
+    border-top: 1px solid var(--dark-gray);
+    background-color: var(--white);
+    box-sizing: border-box;
 }
 
 .chat-form textarea {
-    width: 100%;
-    height: 50px;
+    flex: 1;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--dark-gray);
     resize: none;
 }
 
 .chat-form button {
-    background-color: #3498db;
-    color: white;
+    background-color: var(--blue);
+    color: var(--white);
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -260,5 +316,17 @@ input:focus, textarea:focus {
 }
 
 .chat-form button:hover {
-    background-color: #2980b9;
+    background-color: var(--dark-blue);
+}
+
+caption {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: var(--black);
+    padding: 10px 0;
+    background-color: var(--background-color);
+    box-sizing: border-box;
 }
