@@ -24,6 +24,7 @@ body, html {
     background-color: var(--background-color);
     font-family: Arial, sans-serif;
     overflow: hidden; /* Prevent scrolling */
+    box-sizing: border-box;
 }
 
 h2 {
@@ -37,13 +38,19 @@ header {
     position: fixed;
     top: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 10px 20px;
     background-color: var(--background-color);
     border: none;
     z-index: 1000;
+}
+
+header section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
 }
 
 .logo img {

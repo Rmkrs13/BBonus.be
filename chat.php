@@ -108,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <header>
+        <section>
         <div class="logo">
             <a href="./index.php">
                 <img src="./images/logo.svg" alt="BBonus Logo">
@@ -116,10 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="dropdown">
             <!-- Dropdown content can be added here if needed -->
         </div>
+        </section>
     </header>
 
     <main>
         <section class="chat">
+        <h2>Chat met B-Bonus AI</h2>
             <div class="chat-container">
                 <div class="chat-box">
                     <?php
@@ -136,7 +139,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <button type="submit">Verzenden</button>
                 </form>
             </div>
-            <h2>Chat met B-Bonus AI</h2>
         </section>
     </main>
     <caption>

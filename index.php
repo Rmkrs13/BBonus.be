@@ -17,6 +17,7 @@
 </head>
 <body>
     <header>
+        <section>
         <div class="logo">
             <a href="./index.php">
                 <img src="./images/logo.svg" alt="BBonus Logo">
@@ -29,6 +30,7 @@
                 <a href="#">DE</a>
             </div>
         </div>
+        </section>
     </header>
 
     <main>
